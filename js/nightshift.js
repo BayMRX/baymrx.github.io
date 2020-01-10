@@ -1,3 +1,0 @@
-// build time:Wed Aug 28 2019 20:41:37 GMT+0800 (China Standard Time)
-$(function(){i();function o(){var o=$("body").hasClass("night-mode")?"day":"night";Cookies.set("night-mode",o,{expires:7,path:"/"});i()}function i(){if(Cookies.get("night-mode")=="night"){$("body").addClass("night-mode");$("#nightshift").removeClass("fa-moon-o").addClass("fa-sun-o")}if(Cookies.get("night-mode")=="day"){$("body").removeClass("night-mode");$("#nightshift").removeClass("fa-sun-o").addClass("fa-moon-o")}}$("#nightshift").click(function(){o()})});
-//rebuild by neat 

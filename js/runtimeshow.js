@@ -1,3 +1,0 @@
-// build time:Wed Aug 28 2019 20:41:37 GMT+0800 (China Standard Time)
-var start_date=document.getElementById("runtionshow").getAttribute("start_date");function show_date_time(){window.setTimeout("show_date_time()",1e3);BirthDay=new Date(start_date);today=new Date;timeold=today.getTime()-BirthDay.getTime();msPerDay=24*60*60*1e3;e_daysold=timeold/msPerDay;daysold=Math.floor(e_daysold);webinfo_runtime_count.innerHTML=daysold+" "+GLOBAL_CONFIG.runtime_unit}show_date_time();
-//rebuild by neat 

@@ -1,3 +1,3 @@
-// build time:Wed Aug 28 2019 20:41:37 GMT+0800 (China Standard Time)
+// build time:Fri Jan 10 2020 14:50:29 GMT+0800 (China Standard Time)
 !function(){function t(t){var e,n;if(t.preventDefault(),e=window.getSelection().toString()+"<br><br>本文采用 CC BY-NC-SA 4.0 许可协议，著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。<br>作者：BayMRX<br>来源："+document.title+"<br>链接："+window.location.href,n=window.getSelection().toString()+"\n\n本文采用 CC BY-NC-SA 4.0 许可协议，著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。\n作者：BayMRX\n来源："+document.title+"\n链接："+window.location.href,t.clipboardData)t.clipboardData.setData("text/html",e),t.clipboardData.setData("text/plain",n);else if(window.clipboardData)return window.clipboardData.setData("text",n)}document.body.addEventListener("copy",function(e){var n=window.getSelection().anchorNode.parentNode.nodeName;n!=="CODE"&&n!=="SPAN"&&window.getSelection().toString().length>120&&t(e)})}();
 //rebuild by neat 
