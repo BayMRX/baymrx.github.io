@@ -11,6 +11,18 @@
         <content type="html"><![CDATA[<p>测试。。。$$333^{23232}$$结果</p>]]></content>
       
       
+      <categories>
+          
+          <category> test </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> test </tag>
+            
+        </tags>
       
     </entry>
     
