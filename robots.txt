@@ -1,13 +1,13 @@
 User-agent: *
 Allow: /
-Allow: /categories/
-Allow: /tags/
-Allow: /archives/
-Allow: /about/
-Allow: /message/
+Disallow: /categories/
+Disallow: /tags/
+Disallow: /archives/
+Disallow: /about/
+Disallow: /message/
 Disallow: /js/
 Allow: /css/
 Disallow: /img/
 
-Sitemap: http://baymrx.me/sitemap.xml
-Sitemap: http://www.baymrx.me/baidusitemap.xml
+Sitemap: https://baymrx.me/sitemap.xml
+Sitemap: https://www.baymrx.me/baidusitemap.xml
