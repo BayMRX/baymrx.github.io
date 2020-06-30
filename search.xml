@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>Nmap的几种常见扫描方式</title>
+      <link href="/posts/664e0a31.html"/>
+      <url>/posts/664e0a31.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Nmap扫描原理：首先会发送ICMP数据包确定探测主机是否存在(存活扫描)，再探测主机存在的端口</p><h2 id="1intense-scan强扫描"><a class="markdownIt-Anchor" href="#1intense-scan强扫描"></a> 1.Intense scan（强扫描）</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -T4 -A -v [ip_addr]</span><br></pre></td></tr></table></figure><p>-T4：第4强度的扫描（同时扫描端口数的强度）</p><p>-A：探测目标的详细信息</p><p>-v：输出探测过程中的详细信息</p><h2 id="2intense-scan-plus-udp强扫描udp"><a class="markdownIt-Anchor" href="#2intense-scan-plus-udp强扫描udp"></a> 2.Intense scan plus UDP(强扫描+UDP)</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -sU -T4 -A -v [ip_addr]</span><br></pre></td></tr></table></figure><p>-sS：（send SYN）TCP SYN探测扫描</p><p>-sU：探测UDP</p><h2 id="3intense-scan-all-tcp-ports强扫描全部tcp端口"><a class="markdownIt-Anchor" href="#3intense-scan-all-tcp-ports强扫描全部tcp端口"></a> 3.Intense scan, all TCP ports（强扫描全部TCP端口）</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -p 1-65535 -T4 -A -v [ip_addr]</span><br></pre></td></tr></table></figure><p>-p：探测的端口号</p><h2 id="4intense-scan-no-ping"><a class="markdownIt-Anchor" href="#4intense-scan-no-ping"></a> 4.Intense scan, no ping</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -T4 -A -v -Pn [ip_addr]</span><br></pre></td></tr></table></figure><p>-Pn：扫描之前不ping远程主机（模拟成TCP连接探测主机是否存活）</p><h2 id="5ping-scan"><a class="markdownIt-Anchor" href="#5ping-scan"></a> 5.Ping scan</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn [ip_addr]</span><br></pre></td></tr></table></figure><p>-sn：只探测存活（与上面的<code>-Pn</code>不能同时使用）</p><h2 id="6quick-scan快速扫描"><a class="markdownIt-Anchor" href="#6quick-scan快速扫描"></a> 6.Quick scan（快速扫描）</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -T4 -F [ip_addr]</span><br></pre></td></tr></table></figure><p>-F：快速扫描，减少端口响应等待时间</p><h2 id="7quick-scan-plus"><a class="markdownIt-Anchor" href="#7quick-scan-plus"></a> 7.Quick scan plus</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -T4 -O -F --version-light [ip_addr]</span><br></pre></td></tr></table></figure><h2 id="8quick-traceroute路由追踪"><a class="markdownIt-Anchor" href="#8quick-traceroute路由追踪"></a> 8.Quick traceroute（路由追踪）</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn --traceroute [ip_addr]</span><br></pre></td></tr></table></figure><p>–traceroute：路由追踪，类似于在Windows中的<code>tracert</code>命令</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+          <category> Web </category>
+          
+          <category> Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> Web </tag>
+            
+            <tag> 暑期实训 </tag>
+            
+            <tag> Nmap </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>BurpSuite的4种常用功能使用</title>
       <link href="/posts/6e251019.html"/>
       <url>/posts/6e251019.html</url>
