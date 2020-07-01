@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>session、cookie和token</title>
+      <link href="/posts/f9064069.html"/>
+      <url>/posts/f9064069.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="session会话"><a class="markdownIt-Anchor" href="#session会话"></a> session（会话）</h2><p>session是用户使用web应用请求服务的时候，在服务器端生成的一次会话证明，这个证明会临时保存在服务器端，当用户离开网站或浏览器结束web访问的时候就会被销毁。</p><p>服务器为了区分当前向自己请求服务的是谁，给每个用户分发了一个唯一的“身份标识”（也就是sessionID），当用户使用客户端向服务端发送请求的时候，需要携带该sessionID才能正确请求到服务。</p><h4 id="浏览器和服务器使用session进行交互的过程"><a class="markdownIt-Anchor" href="#浏览器和服务器使用session进行交互的过程"></a> 浏览器和服务器使用session进行交互的过程</h4><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200701223548.png" alt></p><h2 id="cookie"><a class="markdownIt-Anchor" href="#cookie"></a> cookie</h2><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200701225250.png" style="zoom:25%;"><p>cookie是在浏览器客户端存储的一种数据。cookie由服务器生成，发送给浏览器，浏览器把它以文件的形式保存在浏览器的某个目录中。在下一次请求同一网站的时候浏览器会把该cookie发送给服务器，由服务器使用用户名和口令对cookie进行验证。</p><h4 id="cookie的请求流程"><a class="markdownIt-Anchor" href="#cookie的请求流程"></a> cookie的请求流程</h4><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200701231119.png" alt></p><h2 id="token令牌"><a class="markdownIt-Anchor" href="#token令牌"></a> token（令牌）</h2><p>token 也称作令牌，由uid+time+sign[+固定参数]加密后生成。</p><p>token 的认证方式类似于临时的证书签名, 并且是一种服务端无状态的认证方式。所谓无状态就是服</p><p>务端并不会保存身份认证相关的数据。</p><h4 id="组成"><a class="markdownIt-Anchor" href="#组成"></a> 组成</h4><ul><li>uid: 用户唯一身份标识</li><li>time: 当前时间的时间戳</li><li>sign: 签名, 使用 hash/encrypt 压缩成定长的十六进制字符串，以防止第三方恶意拼接</li><li>固定参数(可选): 将一些常用的固定参数加入到 token 中是为了避免重复查库</li></ul><h4 id="token认证过程"><a class="markdownIt-Anchor" href="#token认证过程"></a> token认证过程</h4><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200701232451.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+          <category> Web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> Web </tag>
+            
+            <tag> 暑期实训 </tag>
+            
+            <tag> session </tag>
+            
+            <tag> cookie </tag>
+            
+            <tag> token </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用Metasploit复现永恒之蓝攻击</title>
       <link href="/posts/bac2643b.html"/>
       <url>/posts/bac2643b.html</url>
