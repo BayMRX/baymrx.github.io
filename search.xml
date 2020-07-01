@@ -4,6 +4,41 @@
   
     
     <entry>
+      <title>御剑——Web后台目录扫描</title>
+      <link href="/posts/b86edd0f.html"/>
+      <url>/posts/b86edd0f.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p><a href="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/other/%E5%BE%A1%E5%89%91%E5%90%8E%E5%8F%B0%E6%89%AB%E6%8F%8F%E7%8F%8D%E8%97%8F%E7%89%88.zip" target="_blank" rel="noopener">御剑下载</a></p></blockquote><p>使用御剑扫描器，可以扫描网站的敏感目录，包括网站后台等。其扫描原理就是爆破，即通过敏感目录的字典去匹配。</p><ol><li><p>扫描线程自定义:用户可根据自身电脑的配置来设置调节扫描线程</p></li><li><p>集合DIR扫描 ASP ASPX PHP JSP MDB数据库 包含所有网站脚本路径扫描</p></li><li><p>默认探测200 (也就是扫描的网站真实存在的路径文件)</p></li></ol><h2 id="使用方法"><a class="markdownIt-Anchor" href="#使用方法"></a> 使用方法</h2><ol><li>打开软件在域名框输入要扫描的网站地址</li></ol><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701090858518.png" alt="image-20200701090858518"></p><ol start="2"><li>在下面可以选择扫描线程以及扫描超时间，还有文件类型等</li></ol><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701091038414.png" alt="image-20200701091038414"></p><ol start="3"><li>全部选择好以后就可以点击开始扫描了</li></ol><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701091203248.png" alt="image-20200701091203248"></p><ol start="4"><li><p>等待扫描好以后在下面会出现扫描结果</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701091233072.png" alt="image-20200701091233072"></p></li></ol><p>扫描结果中左侧是扫描到的网站后台目录的地址，右边则是HTTP的响应码，通过访问这些地址可以找到网站后台的登录页面。</p><p>尝试访问扫描出来的<code>/dede</code>目录会看到网站后台的登录地址</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701091627497.png" alt="dede目录"></p><p>除此之外，还可以直接访问<code>robots.txt</code>文件来查看被网站管理员禁止爬取的一些网站目录，尝试访问这些目录也会有新的发现。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+          <category> Web </category>
+          
+          <category> Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> Web </tag>
+            
+            <tag> 暑期实训 </tag>
+            
+            <tag> 御剑 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>AWVS的使用</title>
       <link href="/posts/38f474e5.html"/>
       <url>/posts/38f474e5.html</url>
