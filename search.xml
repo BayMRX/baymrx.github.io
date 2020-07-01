@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>使用Metasploit复现永恒之蓝攻击</title>
+      <link href="/posts/bac2643b.html"/>
+      <url>/posts/bac2643b.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1metaspolit介绍"><a class="markdownIt-Anchor" href="#1metaspolit介绍"></a> 1.Metaspolit介绍</h2><p>Metasploit是一个免费的、可下载的框架，通过它可以很容易地获取、开发并对计算机软件漏洞实施攻击。它本身附带数百个已知软件漏洞的专业级漏洞攻击工具，并保持着频繁更新。被安全社区冠以“可以黑掉整个宇宙”之名的强大渗透测试框架。</p><h2 id="2术语"><a class="markdownIt-Anchor" href="#2术语"></a> 2.术语</h2><ul><li><p>渗透攻击（Exploit）：指由攻击者或渗透测试者利用一个系统、应用或服务中的安全漏洞，所进行的攻击行为。</p></li><li><p>攻击载荷（Payload）：是我们期望目标系统在被渗透攻击之后去执行的代码。</p></li><li><p>Shellcode：是在渗透攻击是作为攻击载荷运行的一组机器指令，通常用汇编语言编写。</p></li><li><p>模块（Module）：指Metasploit框架中所使用的一段软件代码组件，可用于发起渗透攻击或执行某些辅助攻击动作。</p></li><li><p>监听器（Listener）：是Metasploit中用来等待网络连接的组件。</p></li></ul><h2 id="3metasploit使用"><a class="markdownIt-Anchor" href="#3metasploit使用"></a> 3.Metasploit使用</h2><p>永恒之蓝是2017年公布的一个网络攻击工具，它利用Windows系统的SMB漏洞获取系统的最高权限。微软也在同年发布了MS17-010补丁，修复了“永恒之蓝”攻击的系统漏洞。</p><p>在实验室的电脑上，通过使用nmap对主机进行扫描发现所有的电脑的445端口都是开启状态，并且实验室电脑中的防火墙都是关闭状态，由此猜测电脑可能存在永恒之蓝SMB漏洞。</p><blockquote><p>为了不造成其他不良影响，此次实验在虚拟机中搭建环境进行复现。复现环境：<code>Kali-Linux-2020.1</code> 、<code>Windows 7 Ultimate with sp1 x64</code></p></blockquote><ol><li>先在Kali中测试Windows主机是否能够正常访问</li></ol><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701200351460.png" alt="image-20200701200351460"></p><ol start="2"><li><p>执行<code>mafconsole</code>打开Metasploit</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701201212074.png" alt="image-20200701201212074"></p></li><li><p>搜索关于<code>ms17-010</code>的可使用工具</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701201610039.png" alt="image-20200701201610039"></p><p>可以看到序号为1的工具为SMB漏洞的辅助扫描工具</p></li><li><p>使用扫描工具对目标主机进行扫描</p></li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use auxiliary/scanner/smb/smb_ms17_010</span><br></pre></td></tr></table></figure><p>切换到扫描工具后设置要扫描的主机地址并进行攻击扫描</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701202033580.png" alt="image-20200701202033580"></p><p>可以看到工具扫描出目标主机可能存在对应MS17-010补丁的漏洞</p><ol start="5"><li>使用永恒之蓝攻击</li></ol><p>切换到永恒之蓝工具</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msf5 auxiliary(scanner/smb/smb_ms17_010) &gt; use exploit/windows/smb/ms17_010_eternalblue</span><br></pre></td></tr></table></figure><p>设置目标主机地址后对目标主机进行渗透攻击</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701202341306.png" alt="image-20200701202341306"></p><p>可以看到攻击后直接连接到了Windows系统的命令行中</p><p>在用户桌面创建一个<code>HACKED</code>文件夹</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701202655568.png" alt="image-20200701202655568"></p><p>切换到Windows7 可以在桌面上看到刚创建的<code>HACKED</code>文件夹，说明攻击成功</p><p><img src= "/img/loading.gif" data-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200701202817212.png" alt="image-20200701202817212"></p><h2 id="4反弹shell"><a class="markdownIt-Anchor" href="#4反弹shell"></a> 4.反弹shell</h2><p>reverse shell，就是控制端监听在某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。reverse shell与telnet，ssh等标准shell对应，本质上是网络概念的客户端与服务端的角色反转。</p><p>反弹shell攻击就是使用恶意代码让目的主机主动向攻击者发起连接，如远程控制请求连接，从而达到获取目的主机控制权限的目的。上面使用Metasploit实现永恒之蓝漏洞攻击就是一个反弹shell的实例。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+          <category> Web </category>
+          
+          <category> Tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+            <tag> Web </tag>
+            
+            <tag> 暑期实训 </tag>
+            
+            <tag> Metasploit </tag>
+            
+            <tag> 永恒之蓝 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>御剑——Web后台目录扫描</title>
       <link href="/posts/b86edd0f.html"/>
       <url>/posts/b86edd0f.html</url>
