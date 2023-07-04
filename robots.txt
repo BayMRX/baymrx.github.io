@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /posts/
+Disallow: /categories/
+Disallow: /tags/
+Disallow: /archives/
+Disallow: /about/
+Disallow: /link/
+Disallow: /message/
+Allow: /js/
+Allow: /css/
+Allow: /img/
+
+Sitemap: https://baymrx.me/sitemap.xml
+Sitemap: https://www.baymrx.me/baidusitemap.xml
