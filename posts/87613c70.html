@@ -1,0 +1,419 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo进阶——主题和功能的完善 | BayMRX</title><meta name="author" content="BayMRX."><meta name="copyright" content="BayMRX."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="花费了一天的时间搭建Hexo博客，总算是有个雏形，可是默认的主题总觉得有些丑，决定换个主题再继续折腾一番……这篇文章主要记录一下主题的安装、配置与美化，以及配置过程中遇到的一些问题– 找一个适合自己的主题 Hexo官网上提供了几百种样式的主题，可以从这里面去寻找自己喜欢的Hexo Themes 经过"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://baymrx.me/posts/87613c70"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//static.cloudflareinsights.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="IbymInmKSwzYJ23XxtbfrpA2D96JFdilyCVyLbs4GgM"/><meta name="baidu-site-verification" content="code-BtlqGhZrrC"/><meta name="bing_site_verification" content="b9caa36ba366bb642aeb89e4131554ce"/><meta name="qihu_site_verification" content="6f988dabfd2b02d14e6417fe33a6724d"/><meta name="yandex_site_verification" content="bfe4578ce1f4a696"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d2fc5e9d22507d4a0c94eb1ada8ba3d3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BMPDN6HEFJ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BMPDN6HEFJ');
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;5871bbc4381146fa8bd5f570f00a53f3&quot;}"></script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "6ehiseir6t");</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: BayMRX.","link":"链接: ","source":"来源: BayMRX","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo进阶——主题和功能的完善',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-04 10:54:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/hexo.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="BayMRX"><span class="site-name">BayMRX</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo进阶——主题和功能的完善</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-08-02T08:41:44.000Z" title="发表于 2019-08-02 16:41:44">2019-08-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-04T02:54:08.402Z" title="更新于 2023-07-04 10:54:08">2023-07-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Hexo/">Hexo</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>17分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Hexo进阶——主题和功能的完善"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/87613c70#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>花费了一天的时间搭建Hexo博客，总算是有个雏形，可是默认的主题总觉得有些丑，决定换个主题再继续折腾一番……这篇文章主要记录一下主题的安装、配置与美化，以及配置过程中遇到的一些问题–</p>
+<h2 id="找一个适合自己的主题">找一个适合自己的主题</h2>
+<p>Hexo官网上提供了几百种样式的主题，可以从这里面去寻找自己喜欢的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io/themes/">Hexo Themes</a></p>
+<p>经过一番骚操作，最终相中了<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a>这个主题，真是深得我心</p>
+<h2 id="对主题进行安装和配置">对主题进行安装和配置</h2>
+<p>Butterfly主题也有比较详细的安装配置方法，照着这个<a target="_blank" rel="noopener external nofollow noreferrer" href="https://jerryc.me/posts/21cfbf15/">hexo-theme-butterfly安装文档</a>一步一步自己进行配置就可以~</p>
+<h3 id="配置时遇到的问题">配置时遇到的问题</h3>
+<p>尽管主题的官方文档已经说的很详细，但是我在配置的过程中还是遇到了一丢丢小问题，在此记录：</p>
+<h4 id="1-Algolia搜索">1. Algolia搜索</h4>
+<p>在启用Algolia搜索系统的时候，在Algolia的配置上遇到了很大的问题，ID和Key什么的都没有配置好，也许是我英语水平太低，没能理解<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/oncletom/hexo-algolia">官方配置文档</a>所致。这里附一篇中文的配置介绍——<a target="_blank" rel="noopener external nofollow noreferrer" href="https://juejin.im/post/5af3f9d1518825673e35a6eb">Hexo+Next集成Algolia搜索</a>。参考这一篇文章再自己进行配置就容易多了</p>
+<h4 id="2-新建文章时的默认模板">2. 新建文章时的默认模板</h4>
+<p>当我们使用 <code>hexo new &quot;filename&quot;</code>新建一个文章的时候，会使用默认的模板建立</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564731851768.png" alt="1564731851768"></p>
+<p>为了配合主题更好的使用，我们可以把默认模板修改成与主题相符的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://jerryc.me/posts/21cfbf15/#%E4%B8%BB%E9%A1%8C%E9%A0%81%E9%9D%A2">主题页面</a></p>
+<p>模板文件在博客根目录的 <code>scaffolds</code>文件夹下</p>
+<p>修改 <code>page.md</code></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title:</span><br><span class="line">date:</span><br><span class="line">type: （tags,link,categories这三个页面需要配置）</span><br><span class="line">comments: (是否需要显示评论，默认true)</span><br><span class="line">description:</span><br><span class="line"><span class="section">top<span class="emphasis">_img: (设置顶部图)</span></span></span><br><span class="line"><span class="emphasis"><span class="section">---</span></span></span><br></pre></td></tr></table></figure>
+<p>修改 <code>post.md</code></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title:</span><br><span class="line">date:</span><br><span class="line">tags:</span><br><span class="line">categories:</span><br><span class="line">keywords:</span><br><span class="line">description:</span><br><span class="line">top<span class="emphasis">_img: （除非特定需要，可以不写）</span></span><br><span class="line"><span class="emphasis">comments:  是否显示评论（除非设置false,可以不写）</span></span><br><span class="line"><span class="emphasis">cover:  缩略图</span></span><br><span class="line"><span class="emphasis">toc:  是否显示toc （除非特定文章设置，可以不写）</span></span><br><span class="line"><span class="emphasis">toc_</span>number: 是否显示toc数字 （除非特定文章设置，可以不写）</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h4 id="3-本地上传的图片无法加载">3. 本地上传的图片无法加载</h4>
+<p>如果需要配置加载本地图片，  在站点配置文件<code>_config.yml</code>中找到<code>post_asset_folder</code>，设置为<code>true</code>。</p>
+<p>之后在运行<code>hexo new</code>时，会自动创建一个与.md文件同名的文件夹，可以将与文章相关的所有资源放在这个文件夹中，方便引用。</p>
+<p>另外还需要安装图片上传插件，在博客根目录运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+<p>然后正常生成部署即可</p>
+<p>但是！</p>
+<p>在我这里出现了一丢丢问题，图片依然无法加载，在网页查看图片的链接发现被改成了<code>baymrx.me/.me//**.png</code>这种形式，，令我百思不得其解。后来经查阅资料发现是插件的脚本问题。</p>
+<p>进入博客根目录下的<code>node_modules</code>文件夹，找到<code>hexo-asset-image</code>，，打开文件夹下的<code>index.js</code>文件，我这里贴出部分源代码（出现问题的代码）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.<span class="property">config</span>;</span><br><span class="line">  <span class="keyword">if</span>(config.<span class="property">post_asset_folder</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.<span class="property">permalink</span>;</span><br><span class="line">    <span class="keyword">var</span> beginPos = <span class="title function_">getPosition</span>(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> appendLink = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">    <span class="comment">// if not with index.html endpos = link.lastIndexOf(&#x27;.&#x27;) + 1 support hexo-abbrlink</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="regexp">/.*\/index\.html$/</span>.<span class="title function_">test</span>(link)) &#123;</span><br><span class="line">      <span class="comment">// when permalink is end with index.html, for example 2019/02/20/xxtitle/index.html</span></span><br><span class="line">      <span class="comment">// image in xxtitle/ will go to xxtitle/index/</span></span><br><span class="line">      appendLink = <span class="string">&#x27;index/&#x27;</span>;</span><br><span class="line">      <span class="keyword">var</span> endPos = link.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> endPos = link.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    link = link.<span class="title function_">substring</span>(beginPos, endPos) + <span class="string">&#x27;/&#x27;</span> + appendLink;</span><br></pre></td></tr></table></figure>
+<p>这一部分将图片链接的<code>2019/02/20/xxtitle/</code>这一部分提取出来，并存入变量link中，此代码问题出在9–12行的if语句中，这里将<code>index.html</code>作为了判断条件，但实际上文档的url地址中并不显示<code>index.html</code>，导致原本应该截取的永久链变成了<code>.me//</code>。<s>这里我走了一个投机取巧的办法，就是修改第16行的代码，改为</s> 这里官方<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xcodebuild/hexo-asset-image/issues/47">issues</a>提出了解决方案，依旧是修改第16行的代码，即源文件的第24行，改为</p>
+<p>​      <s>var endPos = link.lastIndexOf(‘/’);</s></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var endPos = link.length-1; </span><br></pre></td></tr></table></figure>
+<p>这样再重新生成部署博客就可以正常显示本地图片了</p>
+<h4 id="4-文章缩略图无法设置">4. 文章缩略图无法设置</h4>
+<p>文章缩略图<code>cover</code>使用上面的方式进行设置，发现并没有什么用，想了好久也没想到能使用本地图片的方法，无奈只能选择以图床的方式添加缩略图。</p>
+<p>浏览了互联网整个浩瀚的海洋，发现了几个比较有名的图床，腾讯云COS，微博图床，七牛云，阿里云OSS，又拍云，网易云NOS，<a target="_blank" rel="noopener external nofollow noreferrer" href="http://sm.ms">sm.ms</a>，Imgur，GitHub等等，经过多方面的调查比较，发现这些图床并不符合我想要的，要么收费、要么需要域名备案、要么稳定性没有绝对的保障。</p>
+<p>后来在我使用的主题的作者jerryc的博客里发现他使用的是jsDelivr作为CDN加速提供图片外链，经过查阅资料得知，这种方式的主要思路是使用GitHub作为图片存储，使用jsDelivr作为GitHub的CDN加速，将静态文件缓存在jsDelivr的CDN节点上，最后获得加速后的图片url</p>
+<p>首先要<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/new">创建一个GitHub仓库</a>，并起一个仓库名，公开仓库即可</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564887053051.png" alt="1564887053051"></p>
+<p>然后在GitHub中<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/settings/tokens/new">获取一个token</a>（它可以让程序拥有控制仓库的权限）</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564886509572.png" alt="1564886509572"></p>
+<p>然后设置一个Note作为token的标记，下面的选项只把repo打钩即可</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564886631396.png" alt="1564886631396"></p>
+<p>之后网页滑到最下面，<code>Generate token</code>生成token，并复制，记住这个token只显示一次，如果不慎把网页关闭，就只能重新生成一次token了</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564886774195.png" alt="1564886774195"></p>
+<p>然后我们下载一个图片上传工具，在这里我们使用PicGo（<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Molunerfinn/PicGo/releases">点击下载</a>），下载完后安装打开，在图床设置处配置GitHub图床</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564886888829.png" alt="1564886888829"></p>
+<ol>
+<li>
+<p>设定仓库名：填写上面创建的仓库，格式为<code>用户名/仓库名</code>；</p>
+</li>
+<li>
+<p>设定分支名：一般默认填<code>master</code>即可；</p>
+</li>
+<li>
+<p>设定token：将上面生成的token粘贴进去；</p>
+</li>
+<li>
+<p>指定存储路径：想把图片放到仓库的哪个位置就设置哪个路径，比如<code>img/</code>，注意文件夹的后面一定要带 <code>/</code>否则会被当做文件处理；</p>
+</li>
+<li>
+<p>设置自定义域名： 这里我的设置是</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master</span><br></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li><code>gh</code>表示来自于GitHub仓库</li>
+<li><code>BayMRX/Blog_source</code>表示仓库名</li>
+<li><code>master</code>是仓库的分支</li>
+</ul>
+<p>配置完成，确定保存即可。</p>
+<p>然后就可以通过PicGo方便地上传图片了，它支持拖拽、点击、剪贴板上传，上传后，图片链接会直接复制到剪贴板中。</p>
+<blockquote>
+<p>需要注意的地方：</p>
+<p>这里创建GitHub仓库的时候，不能创建私人仓库，否则会无法连接，提示</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564889442772.png" alt="1564889442772"></p>
+<p>所以创建的时候要创建公开仓库。</p>
+</blockquote>
+<h2 id="主题再创作——在原有主题上再添加一些功能">主题再创作——在原有主题上再添加一些功能</h2>
+<h4 id="Valine评论系统">Valine评论系统</h4>
+<p>评论系统是搭建好了，测试也可以正常使用，就是如果有什么人对我的文章进行评论了的话，我也不知道啊。一番搜索找到了解决办法，Valine评论系统是基于 Leancloud的云引擎与云函数，可以提供邮件通知的服务。</p>
+<p>在这里找到了一篇文章供作参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhaojun.im/hexo-valine-modify/">Hexo 优化 — 支持邮件通知的评论 Valine 增强版</a></p>
+<p>★★<code>2020-06-18</code>更新：最近官方对于LeanCloud服务器的唤醒进行了限制，没法使用重发函数对服务器进行唤醒，导致无法正常使用邮件提醒服务。查看日志它会提示&quot;因流控原因，通过定时任务唤醒体验版实例失败，建议升级至标准版云引擎实例避免休眠&quot;。去网上查找资料，发现还是有解决办法的，参考小康大佬的博客：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.antmoe.com/posts/ff6aef7b/index.html">优雅解决 LeanCloud 流控问题</a></p>
+<p>这里我使用的是大佬的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.antmoe.com/posts/ff6aef7b/index.html#%E6%96%B9%E6%A1%88%E5%9B%9B">方案四</a>解决的，唤醒计划依然是每20分钟一次。</p>
+<h4 id="提交网站到搜索引擎（SEO优化）">提交网站到搜索引擎（SEO优化）</h4>
+<p>在我们刚建立好网站时，搜索引擎无法检索到我们的网站。可以在搜索引擎中输入<code>site:&lt;域名&gt;</code>来查看网站是否已被搜索引擎收录。感谢<a target="_blank" rel="noopener external nofollow noreferrer" href="https://luanzhuxian.github.io/post/82d92ad4.html">Hexo + Next 主题博客提交百度谷歌收录</a>提供教程参考。</p>
+<h5 id="1-验证站点">1. 验证站点</h5>
+<p>有三种验证方式，文件验证、html 标签验证、cname 解析验证。可参考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://jerryc.me/posts/21cfbf15/#%E7%B6%B2%E7%AB%99%E9%A9%97%E8%AD%89">网站验证</a></p>
+<h5 id="2-生成sitemap站点地图并提交">2. 生成sitemap站点地图并提交</h5>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.google.com/webmasters/#?modal_active=none">Google</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://ziyuan.baidu.com/dashboard/index">Baidu</a></p>
+<h5 id="3-静态资源压缩优化">3.静态资源压缩优化</h5>
+<p>对于个人博客，访问速度的优化是很有必要的，当然访问速度越快越有利于搜索引擎排名的靠前。所以要想提高博客的页面加载速度。可以考虑对页面的静态资源进行压缩，我们自己生成的html、css和js文件，为了可读性会有很多换行和空格，这对浏览器来说会降低页面渲染的速度。</p>
+<p>安装hexo-neat插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-neat --save</span><br></pre></td></tr></table></figure>
+<p>在配置文件<code>_config.yml</code>中添加配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo-neat</span></span><br><span class="line"><span class="comment"># 博文压缩</span></span><br><span class="line"><span class="attr">neat_enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment"># 压缩html</span></span><br><span class="line"><span class="attr">neat_html:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude:</span></span><br><span class="line"><span class="comment"># 压缩css  </span></span><br><span class="line"><span class="attr">neat_css:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/*.min.css&#x27;</span></span><br><span class="line"><span class="comment"># 压缩js</span></span><br><span class="line"><span class="attr">neat_js:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">mangle:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">output:</span></span><br><span class="line">  <span class="attr">compress:</span></span><br><span class="line">  <span class="attr">exclude:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/*.min.js&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/jquery.fancybox.pack.js&#x27;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/index.js&#x27;</span>  </span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/main.js&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>有些js或css文件压缩后可能会失效，如果发现页面某些功能不正常或者无法生成静态页面文件，可以配置跳过压缩对应的文件</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">neat_js:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">exclude:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/*.min.js&#x27;</span></span><br></pre></td></tr></table></figure>
+<h4 id="添加404页面">添加404页面</h4>
+<p>尝试过网上介绍的办法，直接 <code>hexo new page 404</code>生成404页面不能正确跳转到自己定义的404页面，而是跳转到服务器默认的白色404页面</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564830381908.png" alt=""></p>
+<p>再次百思不得其解，又是一波疯狂的查阅资料，发现是Nginx的问题，需要对Nginx进行配置才能正确跳转到自定义的404页面</p>
+<p>首先我们要建立一个<code>404.html</code>文件在博客根目录下的<code>/source</code>文件夹中</p>
+<p>网页的内容这里我是用腾讯的404公益页面，也算是行善了吧，当然也可以把页面设计成自己想要的任何亚子</p>
+<p>在这里附上调用腾讯404公益页面的网页源码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">title</span>&gt;</span>404 Not Found!<span class="tag">&lt;/<span class="name">title</span>&gt;</span>                                                                                                                                        </span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js&quot;</span> <span class="attr">homePageName</span>=<span class="string">&quot;返回我的首页&quot;</span> <span class="attr">homePageUrl</span>=<span class="string">&quot;http://baymrx.me&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">true<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果这样使用hexo直接生成部署，这个html也会被按照主题样式被渲染，所以这里我们要跳过渲染，修改根目录下的配置文件<code>_config.yml</code>，在<code>skip_render</code>的后面添加<code>404.html</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip_render: 404.html</span><br></pre></td></tr></table></figure>
+<p>如果有多项需要跳过渲染的文件，用 <code>-</code> 隔开。</p>
+<p>然后我们需要在服务器端配置Nginx</p>
+<p>先SSH连接登陆到远端服务器，然后修改Nginx的配置文件<code>nginx.conf</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<p>在http的定义区域添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastcgi_intercept_errors on;</span><br></pre></td></tr></table></figure>
+<p>添加完后保存更改，随后再更改站点配置文件，继续更改<code>nginx.conf</code>，我这里是<code>sites-enabled</code>下的单独网站配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/sites-enabled/default </span><br></pre></td></tr></table></figure>
+<p>在<code>server</code>区域中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error_page 404 = /404.html;</span><br></pre></td></tr></table></figure>
+<p>更改完成后保存，重启Nginx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service nginx restart</span><br></pre></td></tr></table></figure>
+<p>浏览器访问一个不存在的页面，如<a href="http://baymrx.me/qaq">baymrx.me/qaq</a>，便可看到设定的404页面</p>
+<h4 id="文章复制添加版权小尾巴">文章复制添加版权小尾巴</h4>
+<p>我们借助于主题，已经把文章末尾加上了版权说明信息</p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/1564844695079.png" alt="1564844695079"></p>
+<p><s>但是加上这个似乎并没有什么卵用，我们在访问别人的博客时，比如CSDN这一类，如果要从他们的博客里面复制一些文字，粘贴出来总会带有作者版权的小尾巴，那么在Hexo里面怎么实现这个功能呢。又是一波疯狂的资料查阅，发现网上大部分的功能修改都是基于ejs和swig模板引擎的主题，而我使用的Butterfly主题是用的pug模板引擎，这就造成了不能通过直接添加文件的大麻烦。</s></p>
+<p>(2020.1.10更新)这里添加版权小尾巴在最新版本的主题中已经可以实现了，并且可以自由开启和关闭文章的复制功能，修改主题配置文件中对应的设置即可实现：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># copy setting</span></span><br><span class="line"><span class="comment"># 是否禁止複製（如果禁止，highlight_copy的功能將無效)</span></span><br><span class="line"><span class="comment"># copyright 複製的内容後面加上版權信息</span></span><br><span class="line"><span class="attr">copy:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># true 開啓 / false 禁止</span></span><br><span class="line">  <span class="attr">copyright:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p><s>既然不能直接添加，那么就自己进行移植，在了解了一丢丢pug的语法之后，发现可以通过在pug文件中嵌入js脚本文件来实现</s></p>
+<p><s>—正片开始—</s></p>
+<p><s>首先在主题根目录的<code>Butterfly/source/js</code>文件夹中新建一个js文件<code>copy_right.js</code>，内容为</s></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">!<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">a</span>(<span class="params">a</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> b, c;</span><br><span class="line">        <span class="keyword">if</span> (a.<span class="title function_">preventDefault</span>(), b = <span class="variable language_">window</span>.<span class="title function_">getSelection</span>().<span class="title function_">toString</span>() + <span class="string">&quot;&lt;br&gt;&lt;br&gt;本文采用 CC BY-NC-SA 4.0 许可协议，著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。&lt;br&gt;作者：BayMRX&lt;br&gt;来源：&quot;</span> + <span class="variable language_">document</span>.<span class="property">title</span> + <span class="string">&quot;&lt;br&gt;链接：&quot;</span> + <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span>, c = <span class="variable language_">window</span>.<span class="title function_">getSelection</span>().<span class="title function_">toString</span>() + <span class="string">&quot;\n\n本文采用 CC BY-NC-SA 4.0 许可协议，著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。\n作者：BayMRX\n来源：&quot;</span> + <span class="variable language_">document</span>.<span class="property">title</span> + <span class="string">&quot;\n链接：&quot;</span> + <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span>, a.<span class="property">clipboardData</span>) </span><br><span class="line">            a.<span class="property">clipboardData</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/html&quot;</span>, b), a.<span class="property">clipboardData</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/plain&quot;</span>, c);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">clipboardData</span>) <span class="keyword">return</span> <span class="variable language_">window</span>.<span class="property">clipboardData</span>.<span class="title function_">setData</span>(<span class="string">&quot;text&quot;</span>, c)</span><br><span class="line">    &#125;</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;copy&quot;</span>, <span class="keyword">function</span>(<span class="params">b</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> sn = <span class="variable language_">window</span>.<span class="title function_">getSelection</span>().<span class="property">anchorNode</span>.<span class="property">parentNode</span>.<span class="property">nodeName</span>;</span><br><span class="line">    (sn !== <span class="string">&#x27;CODE&#x27;</span> &amp;&amp; sn !== <span class="string">&#x27;SPAN&#x27;</span>) &amp;&amp; <span class="variable language_">window</span>.<span class="title function_">getSelection</span>().<span class="title function_">toString</span>().<span class="property">length</span> &gt; <span class="number">10</span> &amp;&amp; <span class="title function_">a</span>(b)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+<p><s>然后要修改我们的pug文件。进入到<code>Butterfly/layout</code>目录，找到<code>post.pug</code>文件用记事本或者Notepad++等编辑器打开，找到<code>block content</code>这个块，在下面的<code>if语句</code>的最后添加一句</s></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script(src=&#x27;/js/copy_right.js&#x27;)</span><br></pre></td></tr></table></figure>
+<p><s>最终代码</s></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">if (theme.post_copyright &amp;&amp; theme.post_copyright.enable)</span><br><span class="line">    .post-copyright</span><br><span class="line">      .post-copyright__author</span><br><span class="line">        span.post-copyright-meta= _p(&#x27;post.copyright.author&#x27;) + &quot;: &quot;</span><br><span class="line">        span.post-copyright-info</span><br><span class="line">          a(href=`mailto:$&#123;config.email&#125;`) #[=config.author]</span><br><span class="line">      .post-copyright__type</span><br><span class="line">        span.post-copyright-meta= _p(&#x27;post.copyright.link&#x27;) + &quot;: &quot;</span><br><span class="line">        span.post-copyright-info</span><br><span class="line">          a(href=url_for(page.permalink)) #[=page.permalink]</span><br><span class="line">      .post-copyright__notice</span><br><span class="line">        span.post-copyright-meta= _p(&#x27;post.copyright.copyright_notice&#x27;) + &quot;: &quot;</span><br><span class="line">        span.post-copyright-info!= _p(&#x27;post.copyright.copyright_content&#x27;, theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)</span><br><span class="line">    script(src=&#x27;/js/copy_right.js&#x27;)</span><br></pre></td></tr></table></figure>
+<p><s>刚加的语句是在if下面，一定要注意好缩进关系！！！</s></p>
+<p><s>然后<code>hexo clean &amp;&amp; hexo g -d</code>生成部署，打开自己的一篇文档复制粘贴，然后就会惊奇的发现多了小尾巴</s>~~</p>
+<p><s>灰常感谢<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.meow.page/2019/04/05/add-little-tail-of-copyright-to-hexo/">驱蚊器喵#ΦωΦ</a>提供技术参考</s></p>
+<hr>
+<hr>
+<p>分割线o(￣ヘ￣o＃)</p>
+<hr>
+<hr>
+<p>以下内容为待完成，会持续更新……<a target="_blank" rel="noopener external nofollow noreferrer" href="https://segmentfault.com/a/1190000009544924#articleHeader3">参考链接</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blinkfox.github.io/2018/09/28/qian-duan/hexo-bo-ke-zhu-ti-zhi-hexo-theme-matery-de-jie-shao/">另一个比较优秀的主题matery——闪烁之狐</a></p>
+<h4 id="添加live-2D（看板娘）">添加live 2D（看板娘）</h4>
+<h5 id="1-安装">1.安装</h5>
+<p>进入Hexo根目录安装live2d插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-helper-live2d</span><br></pre></td></tr></table></figure>
+<p>然后安装live2d模型，使用<code>npm install &#123;packagename&#125;</code>进行安装，模型的包名将会在<code>packages/</code>中以文件夹形式存在，现有的模型有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">live2d-widget-model-chitose</span><br><span class="line">live2d-widget-model-epsilon2_1</span><br><span class="line">live2d-widget-model-gf</span><br><span class="line">live2d-widget-model-haru/01 (use npm install --save live2d-widget-model-haru)</span><br><span class="line">live2d-widget-model-haru/02 (use npm install --save live2d-widget-model-haru)</span><br><span class="line">live2d-widget-model-haruto</span><br><span class="line">live2d-widget-model-hibiki</span><br><span class="line">live2d-widget-model-hijiki</span><br><span class="line">live2d-widget-model-izumi</span><br><span class="line">live2d-widget-model-koharu</span><br><span class="line">live2d-widget-model-miku</span><br><span class="line">live2d-widget-model-ni-j</span><br><span class="line">live2d-widget-model-nico</span><br><span class="line">live2d-widget-model-nietzsche</span><br><span class="line">live2d-widget-model-nipsilon</span><br><span class="line">live2d-widget-model-nito</span><br><span class="line">live2d-widget-model-shizuku</span><br><span class="line">live2d-widget-model-tororo</span><br><span class="line">live2d-widget-model-tsumiki</span><br><span class="line">live2d-widget-model-unitychan</span><br><span class="line">live2d-widget-model-wanko</span><br><span class="line">live2d-widget-model-z16</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://huaji8.top/post/live2d-plugin-2.0/">live2D模型预览查看</a></p>
+<h5 id="2-配置">2.配置</h5>
+<p>修改根目录下的<code>_config.yml</code>文件，添加自定义配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Live2D</span></span><br><span class="line"><span class="attr">live2d:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># enable: false</span></span><br><span class="line">  <span class="attr">scriptFrom:</span> <span class="string">local</span> <span class="comment"># 默认</span></span><br><span class="line">  <span class="attr">pluginRootPath:</span> <span class="string">live2dw/</span> <span class="comment"># 插件在站点上的根目录(相对路径)</span></span><br><span class="line">  <span class="attr">pluginJsPath:</span> <span class="string">lib/</span> <span class="comment"># 脚本文件相对与插件根目录路径</span></span><br><span class="line">  <span class="attr">pluginModelPath:</span> <span class="string">assets/</span> <span class="comment"># 模型文件相对与插件根目录路径</span></span><br><span class="line">  <span class="attr">tagMode:</span> <span class="literal">false</span> <span class="comment"># 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中</span></span><br><span class="line">  <span class="attr">debug:</span> <span class="literal">false</span> <span class="comment"># 调试, 是否在控制台输出日志</span></span><br><span class="line">  <span class="attr">model:</span></span><br><span class="line">    <span class="attr">use:</span> <span class="string">live2d-widget-model-shizuku</span>  <span class="comment">#你所安装的模板的名称</span></span><br><span class="line">    <span class="attr">scale:</span> <span class="number">1</span>   <span class="comment">#模型与canvas的缩放比例，1为正常比例</span></span><br><span class="line">  <span class="attr">display:</span></span><br><span class="line">    <span class="attr">superSample:</span> <span class="number">2</span>  <span class="comment">#超采样等级</span></span><br><span class="line">    <span class="attr">width:</span> <span class="number">150</span>   <span class="comment">#canvas的长度/宽度</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">300</span>   <span class="comment">#canvas的高度</span></span><br><span class="line">    <span class="attr">position:</span> <span class="string">right</span>  <span class="comment">#可以选择left/right 显示位置左或者右</span></span><br><span class="line">    <span class="attr">hOffset:</span> <span class="number">30</span>    <span class="comment">#水平偏移</span></span><br><span class="line">    <span class="attr">vOffset:</span> <span class="number">-20</span>   <span class="comment">#竖直偏移</span></span><br><span class="line">  <span class="attr">mobile:</span> </span><br><span class="line">    <span class="attr">show:</span> <span class="literal">false</span>   <span class="comment">#true/fasle 是否在移动设备上显示</span></span><br><span class="line">    <span class="attr">scale:</span> <span class="number">0.5</span>    <span class="comment">#在移动设备上面的缩放比例，1为正常比例</span></span><br><span class="line">  <span class="attr">name:</span> </span><br><span class="line">    <span class="attr">canvas:</span> <span class="string">live2dcanvas</span>    <span class="comment">#canvas元素的ID</span></span><br><span class="line">    <span class="attr">div:</span> <span class="string">live2d-widget</span>    <span class="comment">#div元素的ID</span></span><br><span class="line">  <span class="attr">react:</span></span><br><span class="line">    <span class="attr">opacityDefault:</span> <span class="number">0.7</span></span><br><span class="line">    <span class="attr">opacityOnHover:</span> <span class="number">0.2</span>    <span class="comment">#透明度，1是完全不透明，0表示完全透明</span></span><br><span class="line">  <span class="attr">dev:</span> </span><br><span class="line">    <span class="attr">border:</span> <span class="literal">false</span>   <span class="comment">#true/false 是否在canvas的周围显示边界</span></span><br><span class="line">  <span class="attr">dialog:</span> </span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span>     <span class="comment">#true/false 是否显示人物对话框</span></span><br><span class="line">    <span class="attr">hitokoto:</span> <span class="literal">true</span>    <span class="comment">#true/false  是否使用一言API</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-生成博客">3. 生成博客</h5>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+<h4 id="设置永久化URL">设置永久化URL</h4>
+<p>Hexo 默认文章链接生成规则是按照年、月、日、标题来生成的。一旦文章标题或者发布时间被修改，URL 就会发生变化，之前文章地址也会变成 404，而且 URL 层级很深，不利于分享和搜索引擎收录。</p>
+<p>如果文章标题中有中文，URL 被转码后会很长。。</p>
+<p>Hexo有一个插件<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/rozbo/hexo-abbrlink">hexo-abbrlink</a>会为每一篇博客生成唯一的ID作为博客的唯一链接，不会受标题和文章内容改变的影响</p>
+<h5 id="1-安装-2">1.安装</h5>
+<p>使用npm命令直接安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
+<h5 id="2-配置-2">2.配置</h5>
+<p>修改博客根目录的<code>_config.yml</code>文件的<code>permalink</code>，并添加<code>abbrlink</code>选项：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># permalink: :year/:month/:day/:title/</span></span><br><span class="line"><span class="comment"># permalink_defaults:</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink.html</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc32</span>  <span class="comment"># 算法：crc16(default) and crc32</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>    <span class="comment"># 进制：dec(default) and hex</span></span><br></pre></td></tr></table></figure>
+<p>其中<code>permalink</code>中的<code>posts</code>是自定义的目录，后面为固定格式，添加<code>.html</code>后缀是为了方便搜索引擎检索。下面的<code>abbrlink</code>选项是永久链的计算方法与进制，默认即可。</p>
+<h5 id="3-验证">3.验证</h5>
+<p>使用<code>hexo clean</code>清理本地文件，然后重新生成，在博客的<code>md</code>文件中就可以看到<code>abbrlink</code>内容：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abbrlink: 87613c70</span><br></pre></td></tr></table></figure>
+<p>这一串字符串就会作为博客的唯一标识出现在博客的URL中。</p>
+<h4 id="将博客同步部署到GitHub-Pages">将博客同步部署到GitHub Pages</h4>
+<p>已填坑，详见：<a href="http://baymrx.me/2020/05/27/%E4%BD%BF%E7%94%A8Hexo-GitHub%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">使用Hexo+GitHub搭建自己的个人博客</a></p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://yangbingdong.com/2017/build-blog-hexo-base/">基于Hexo+github+coding搭建个人博客——基础篇(从菜鸟到放弃)</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://yangbingdong.com/2017/build-blog-hexo-advanced/">基于Hexo搭建个人博客——进阶篇(从入门到入土)</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html">打造个性超赞博客Hexo+NexT+GithubPages的超深度优化</a></p>
+</li>
+</ul>
+<h4 id="主题更多新鲜好玩的玩法">主题更多新鲜好玩的玩法~~</h4>
+<p>参考小康大佬的博客<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.antmoe.com/posts/a811d614/index.html">Hexo 博客之 butterfly 主题优雅魔改系列</a></p>
+<h4 id="添加音乐播放器（最新版本主题已经实现）"><s>添加音乐播放器（最新版本主题已经实现）</s></h4>
+<h4 id="添加动态背景（最新版本主题已经实现）"><s>添加动态背景（最新版本主题已经实现）</s></h4>
+<h4 id="实现点击出现爱心效果（最新版本主题已经实现）"><s>实现点击出现爱心效果（最新版本主题已经实现）</s></h4>
+<h3 id="一套好教程推荐">一套好教程推荐</h3>
+<ul>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://yearito.cn/posts/hexo-get-started.html">Hexo 搭建个人博客系列：基础建站篇</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://yearito.cn/posts/hexo-deploy-to-VPS.html">Hexo 搭建个人博客系列：部署上线篇</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://yearito.cn/posts/hexo-advanced-settings.html">Hexo 搭建个人博客系列：进阶设置篇</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://yearito.cn/posts/hexo-theme-beautify.html">Hexo 搭建个人博客系列：主题美化篇</a></li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="http://yearito.cn/posts/hexo-writing-skills.html">Hexo 搭建个人博客系列：写作技巧篇</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://baymrx.me">BayMRX.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://baymrx.me/posts/87613c70">https://baymrx.me/posts/87613c70</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://baymrx.me" target="_blank">BayMRX</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/hexo.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "/img/loading.gif" data-lazy-src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/4aab5453" title="CTF做题环境linux系统的配置"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/linuxadminhero.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CTF做题环境linux系统的配置</div></div></a></div><div class="next-post pull-right"><a href="/posts/772e8590" title="使用Hexo+Nginx+Namecheap+DigitalOcean搭建个人博客网站"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/hexo.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用Hexo+Nginx+Namecheap+DigitalOcean搭建个人博客网站</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1135ecbe" title="使用Hexo+GitHub搭建自己的个人博客"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/hexo.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-27</div><div class="title">使用Hexo+GitHub搭建自己的个人博客</div></div></a></div><div><a href="/posts/772e8590" title="使用Hexo+Nginx+Namecheap+DigitalOcean搭建个人博客网站"><img class="cover" src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/hexo.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-07-30</div><div class="title">使用Hexo+Nginx+Namecheap+DigitalOcean搭建个人博客网站</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">BayMRX.</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/BayMRX"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/BayMRX" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:mujian2009@126.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%BE%E4%B8%80%E4%B8%AA%E9%80%82%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%BB%E9%A2%98"><span class="toc-text">找一个适合自己的主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%B8%BB%E9%A2%98%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">对主题进行安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">配置时遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Algolia%E6%90%9C%E7%B4%A2"><span class="toc-text">1. Algolia搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%96%B0%E5%BB%BA%E6%96%87%E7%AB%A0%E6%97%B6%E7%9A%84%E9%BB%98%E8%AE%A4%E6%A8%A1%E6%9D%BF"><span class="toc-text">2. 新建文章时的默认模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E4%B8%8A%E4%BC%A0%E7%9A%84%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E5%8A%A0%E8%BD%BD"><span class="toc-text">3. 本地上传的图片无法加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%96%87%E7%AB%A0%E7%BC%A9%E7%95%A5%E5%9B%BE%E6%97%A0%E6%B3%95%E8%AE%BE%E7%BD%AE"><span class="toc-text">4. 文章缩略图无法设置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E5%86%8D%E5%88%9B%E4%BD%9C%E2%80%94%E2%80%94%E5%9C%A8%E5%8E%9F%E6%9C%89%E4%B8%BB%E9%A2%98%E4%B8%8A%E5%86%8D%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%BA%9B%E5%8A%9F%E8%83%BD"><span class="toc-text">主题再创作——在原有主题上再添加一些功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">Valine评论系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E7%BD%91%E7%AB%99%E5%88%B0%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%EF%BC%88SEO%E4%BC%98%E5%8C%96%EF%BC%89"><span class="toc-text">提交网站到搜索引擎（SEO优化）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E9%AA%8C%E8%AF%81%E7%AB%99%E7%82%B9"><span class="toc-text">1. 验证站点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90sitemap%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE%E5%B9%B6%E6%8F%90%E4%BA%A4"><span class="toc-text">2. 生成sitemap站点地图并提交</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8E%8B%E7%BC%A9%E4%BC%98%E5%8C%96"><span class="toc-text">3.静态资源压缩优化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0404%E9%A1%B5%E9%9D%A2"><span class="toc-text">添加404页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E5%A4%8D%E5%88%B6%E6%B7%BB%E5%8A%A0%E7%89%88%E6%9D%83%E5%B0%8F%E5%B0%BE%E5%B7%B4"><span class="toc-text">文章复制添加版权小尾巴</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0live-2D%EF%BC%88%E7%9C%8B%E6%9D%BF%E5%A8%98%EF%BC%89"><span class="toc-text">添加live 2D（看板娘）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85"><span class="toc-text">1.安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE"><span class="toc-text">2.配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E7%94%9F%E6%88%90%E5%8D%9A%E5%AE%A2"><span class="toc-text">3. 生成博客</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%B0%B8%E4%B9%85%E5%8C%96URL"><span class="toc-text">设置永久化URL</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-2"><span class="toc-text">1.安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AE-2"><span class="toc-text">2.配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81"><span class="toc-text">3.验证</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E9%83%A8%E7%BD%B2%E5%88%B0GitHub-Pages"><span class="toc-text">将博客同步部署到GitHub Pages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E6%9B%B4%E5%A4%9A%E6%96%B0%E9%B2%9C%E5%A5%BD%E7%8E%A9%E7%9A%84%E7%8E%A9%E6%B3%95"><span class="toc-text">主题更多新鲜好玩的玩法~~</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%EF%BC%88%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B8%BB%E9%A2%98%E5%B7%B2%E7%BB%8F%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-text">添加音乐播放器（最新版本主题已经实现）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF%EF%BC%88%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B8%BB%E9%A2%98%E5%B7%B2%E7%BB%8F%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-text">添加动态背景（最新版本主题已经实现）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E7%82%B9%E5%87%BB%E5%87%BA%E7%8E%B0%E7%88%B1%E5%BF%83%E6%95%88%E6%9E%9C%EF%BC%88%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B8%BB%E9%A2%98%E5%B7%B2%E7%BB%8F%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-text">实现点击出现爱心效果（最新版本主题已经实现）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%A5%97%E5%A5%BD%E6%95%99%E7%A8%8B%E6%8E%A8%E8%8D%90"><span class="toc-text">一套好教程推荐</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/946c99e6" title="2024 GitHub Student Developer Pack 学生开发包申请指南"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20240106182849.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024 GitHub Student Developer Pack 学生开发包申请指南"/></a><div class="content"><a class="title" href="/posts/946c99e6" title="2024 GitHub Student Developer Pack 学生开发包申请指南">2024 GitHub Student Developer Pack 学生开发包申请指南</a><time datetime="2024-01-06T10:27:15.000Z" title="发表于 2024-01-06 18:27:15">2024-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7bcf35fc" title="Oh-My-Zsh 安装&amp;配置"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/20230704144049.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Oh-My-Zsh 安装&amp;配置"/></a><div class="content"><a class="title" href="/posts/7bcf35fc" title="Oh-My-Zsh 安装&amp;配置">Oh-My-Zsh 安装&amp;配置</a><time datetime="2023-07-04T06:24:06.000Z" title="发表于 2023-07-04 14:24:06">2023-07-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5233648" title="Go SDK搭建多通道多orderer节点的Fabric环境"><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/BayMRX/Blog_source@master/img/202208081326239.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go SDK搭建多通道多orderer节点的Fabric环境"/></a><div class="content"><a class="title" href="/posts/5233648" title="Go SDK搭建多通道多orderer节点的Fabric环境">Go SDK搭建多通道多orderer节点的Fabric环境</a><time datetime="2022-08-11T12:04:43.000Z" title="发表于 2022-08-11 20:04:43">2022-08-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By BayMRX.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://twkioo-vercel.vercel.app/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twkioo-vercel.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
